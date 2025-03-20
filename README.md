@@ -1,4 +1,4 @@
-YOLO Face Recognition using OpenCV  
+**YOLO Face Recognition using OpenCV**  
 
 Overview
 This project uses the **YOLO (You Only Look Once)** object detection algorithm along with **OpenCV** to detect and recognize faces in real-time from images, videos, or webcam feeds. YOLO is a deep learning-based object detection model that can perform fast and accurate face recognition.  

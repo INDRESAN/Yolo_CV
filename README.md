@@ -17,39 +17,53 @@ Install Dependencies
 pip install ultralytics opencv-python numpy pyyaml
 ```
 
-Project Structure 
-```
-📂 yolo-face-recognition
-│── 📂 models              # Pre-trained YOLO model weights
-│── 📂 images              # Sample images for testing
-│── 📂 videos              # Sample videos for testing
-│── detect_faces.py        # Main script for detection
-│── requirements.txt       # Python dependencies
-│── README.md              # Project documentation
-```
+
 
 How to Use
 
-1️⃣ Download YOLOv8 Model
-Download the pre-trained YOLO model weights from the Ultralytics repository:  
-```bash
-wget https://github.com/ultralytics/assets/releases/download/v8/yolov8n.pt -P models/
-```
+1️⃣ Set Up Label Studio for Annotation
+1. Open **Anaconda Prompt** and navigate to Label Studio:
+   ```bash
+   conda activate your_env_name  # Activate your Conda environment
+   label-studio
+   ```
+2. Upload your dataset (images containing faces).
+3. Annotate the images with the appropriate **face recognition classes**.
+4. Export the labeled dataset in **YOLO format** (including `.txt` annotation files).
+5. Save the exported dataset in the `datasets/` folder.
 
-2️⃣ Run Face Detection on an Image  
-```bash
-python detect_faces.py --image images/sample.jpg
-```
+---
 
-3️⃣ Run Face Detection on a Video
-```bash
-python detect_faces.py --video videos/sample.mp4
-```
+2️⃣ Train the YOLO Model in Google Colab
+1. Open **Google Colab** and upload the **annotated dataset**.
+2. Run `yolo_cv.py` to train the model:
+   ```bash
+   python yolo_cv.py --data datasets/ --epochs 50 --output my_model.pt
+   ```
+3. This script will train YOLO and generate the **trained model file (`my_model.pt`)**.
 
-### **4️⃣ Run Face Detection in Webcam**  
-```bash
-python detect_faces.py --webcam
-```
+---
+
+3️⃣ Execute YOLO Face Recognition Using Anaconda
+1. Move the `my_model.pt` file to the **YOLO detection folder**.
+2. Open **Anaconda Prompt** and navigate to the detection script:
+   ```bash
+   cd path/to/yolo_detection
+   conda activate your_env_name
+   ```
+3. Run the **YOLO detection script (`yolo_detect.py`)**:
+   ```bash
+   python yolo_detect.py --model my_model.pt
+   ```
+4. The script will:
+   - Open the webcam.
+   - Recognize **faces based on the trained model**.
+   - Display the live detection results.
+   - 
+Final Notes
+- Label Studio is used for annotating images.
+- Colab is used for training YOLO with the dataset.
+- Anaconda + PyTorch + OpenCV is used for running the detection model on a local machine.
 
 Code: detect_faces.py
 ```python
